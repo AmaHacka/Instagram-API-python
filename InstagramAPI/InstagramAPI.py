@@ -735,6 +735,22 @@ class InstagramAPI:
         locationFeed = self.SendRequest('fbsearch/places/?rank_token=' + str(self.rank_token) + '&query=' + str(query))
         return locationFeed
 
+    def geosearchLocations(self, lat, lng):
+        """
+        Search for nearby Instagram locations by geographical coordinates
+
+        :rtype: bool
+        :param lat: latitude
+        :param lng: longitude
+        """
+        query = "location_search?latitude={lat}&longitude={lng}&rank_token={token}".format(
+            lat=str(lat),
+            lng=str(lng),
+            token=self.rank_token,
+        )
+        locations_status = self.SendRequest(query)
+        return locations_status
+
     def getLocationFeed(self, locationId, maxid=''):
         return self.SendRequest('feed/location/' + str(locationId) + '/?max_id=' + maxid + '&rank_token=' + self.rank_token + '&ranked_content=true&')
 
